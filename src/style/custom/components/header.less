@@ -1,0 +1,30 @@
+.app-header {
+  background-color: @header-bg-color;
+
+  .header-content {
+    margin: 0 auto;
+    padding: 0 40px;
+    .clearfix();
+
+    &-left,
+    &-right {
+      font-size: 0;
+      line-height: 0;
+      height: @header-height;
+      line-height: @header-height;
+    }
+
+    &-left {
+      float: left;
+
+      .logo-box {
+        display: inline-block;
+        vertical-align: middle;
+      }
+    }
+
+    &-right {
+      float: right;
+    }
+  }
+}
