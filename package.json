@@ -1,8 +1,11 @@
 {
   "private": true,
   "scripts": {
-    "start": "umi dev",
-    "build": "umi build",
+    "local": "cross-env UMI_ENV=local PORT=9998 umi dev",
+    "dev": "cross-env UMI_ENV=dev PORT=9998 umi dev",
+    "stage": "cross-env UMI_ENV=stage PORT=9998 umi dev",
+    "prod": "cross-env UMI_ENV=prod umi dev",
+    "build": "cross-env UMI_ENV=prod umi build",
     "test": "umi test",
     "lint": "eslint --ext .js src mock tests",
     "precommit": "lint-staged"
@@ -11,13 +14,16 @@
     "antd": "^3.19.5",
     "axios": "^0.19.0",
     "dva": "^2.6.0-beta.6",
+    "js-cookie": "^2.2.1",
     "nprogress": "^0.2.0",
+    "rc-queue-anim": "^1.8.3",
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
     "yarn": "^1.17.3"
   },
   "devDependencies": {
     "babel-eslint": "^9.0.0",
+    "cross-env": "^6.0.3",
     "eslint": "^5.4.0",
     "eslint-config-umi": "^1.4.0",
     "eslint-plugin-flowtype": "^2.50.0",

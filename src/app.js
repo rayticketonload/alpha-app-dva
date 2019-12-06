@@ -5,8 +5,19 @@ export const dva = {
       console.error(err.message);
     },
     initialState: {
-      products: [{ name: 'dva', id: 1 }, { name: 'antd', id: 2 }],
-      loginStatus: false,
+      products: [
+        {
+          name: 'dva',
+          id: 1,
+        },
+        {
+          name: 'antd',
+          id: 2,
+        },
+      ],
+      verifySessionKey: false,
+      // mock test
+      testGetList: [],
     },
   },
 };

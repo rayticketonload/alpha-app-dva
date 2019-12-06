@@ -21,11 +21,11 @@ function contentLayout(props) {
 
   return (
     <Content
-      className={`content-layout animated fadeIn ${props.needFooter ? 'need-footer' : ''} ${
-        props.extraClass
-      }`}
+      className={`content-layout animated fadeIn ${props.needFooter ? 'need-footer' : ''} ${props.extraClass}`}
     >
-      <div className="app-content">{props.children}</div>
+      <div className="app-content">
+        {props.children}
+      </div>
       {footer()}
     </Content>
   );

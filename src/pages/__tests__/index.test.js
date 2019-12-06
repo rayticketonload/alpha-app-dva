@@ -9,6 +9,6 @@ describe('Page: index', () => {
     const outerLayer = wrapper.root.children[0];
     expect(outerLayer.type).toBe('div');
     expect(outerLayer.children.length).toBe(2);
-    
+
   });
 });

@@ -1,7 +1,50 @@
 const path = require('path');
 
+// 项目部署基础
+// 默认情况下，我们假设你的应用将被部署在域的根目录下,
+// 例如：https://www.my-app.com/
+// 默认：'/'
+// 如果您的应用程序部署在子路径中，则需要在这指定子路径
+// 例如：https://www.foobar.com/my-app/
+// 需要将它改为'/my-app/'，同时需要在routers.js 文件的BASE_URL也改成/my-app/
+// const BASE_URL = process.env.UMI_ENV === 'prod' ? '/' : '/';
+let base_u;
+switch (process.env.UMI_ENV) {
+  case 'local':
+    base_u = '/';
+    break;
+  case 'dev':
+    base_u = '/';
+    break;
+  case 'stage':
+    base_u = '/';
+    break;
+  case 'prod':
+    base_u = '/';
+    break;
+  default:
+}
+const BASE_URL = base_u;
+const nowEnv = process.env.UMI_ENV;
+const nowPort = process.env.PORT;
+
+const API_ROOT_MAP = {
+  local: 'http://rap2api.taobao.org/app/mock/4132/',
+  dev: 'http://rap2api.taobao.org/app/mock/4132/',
+  stage: 'http://rap2api.taobao.org/app/mock/4132/',
+  prod: 'http://rap2api.taobao.org/app/mock/4132/',
+};
+
+var BC_API_ROOT_MAP = {
+  local: 'http://rap2api.taobao.org/app/mock/4132/',
+  dev: 'http://rap2api.taobao.org/app/mock/4132/',
+  stage: 'http://rap2api.taobao.org/app/mock/4132/',
+  prod: 'http://rap2api.taobao.org/app/mock/4132/',
+};
+
 // ref: https://umijs.org/config/
 export default {
+  base: BASE_URL,
   treeShaking: true,
   plugins: [
     // ref: https://umijs.org/plugin/umi-plugin-react.html
@@ -11,7 +54,7 @@ export default {
         antd: true,
         dva: true,
         dynamicImport: false,
-        title: 'alpha-app-dva',
+        title: 'system',
         dll: false,
         disableCSSModules: true,
 
@@ -39,11 +82,19 @@ export default {
     '@pages': path.resolve(__dirname, 'src/pages'),
   },
   proxy: {
+    port: nowPort,
     '/api': {
-      target: 'http://rap2api.taobao.org/app/mock/4132/',
-      changeOrigin: true,
+      target: API_ROOT_MAP[nowEnv],
       pathRewrite: { '^/api': '' },
+      changeOrigin: true,
+      secure: true,
+    },
+    '/bc_api': {
+      target: BC_API_ROOT_MAP[nowEnv],
+      pathRewrite: { '^/bc_api': '/api' },
+      changeOrigin: true,
+      secure: true,
     },
   },
-  theme: './src/antd-theme/tap.js',
+  theme: './src/antd-theme/recoverAntd.js',
 };
