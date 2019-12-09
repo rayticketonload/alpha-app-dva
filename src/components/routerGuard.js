@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
-import router from 'umi/router';
+// import router from 'umi/router';
 import { connect } from 'dva';
-import Cookies from 'js-cookie';
+// import Cookies from 'js-cookie';
 import { Spin, Icon, message } from 'antd';
 import QueueAnim from 'rc-queue-anim';
 import * as CONST from '@constants';
@@ -33,7 +33,7 @@ class RouterGuard extends Component {
           sessionId: query[CONST.SSO_KEY_NAME],
         },
         callback: (res) => {
-          if (res.content) {
+          if (res && res.content) {
             message.success(res.content);
           }
         }

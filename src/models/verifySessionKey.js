@@ -14,9 +14,6 @@ export default {
       }
       yield put({ type: 'save', data: true });
     },
-    *unVerify({ payload, callback}, { call, put }) {
-      yield put({ type: 'save', data: false });
-    },
   },
   reducers: {
     save(state, payload) {

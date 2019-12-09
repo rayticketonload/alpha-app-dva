@@ -1,6 +1,7 @@
 import axios from 'axios';
 import NProgress from 'nprogress';
 import { message } from 'antd';
+import Cookies from 'js-cookie';
 import * as CONST from '@constants';
 import whitelist from './whitelist';
 
@@ -24,7 +25,6 @@ export default async function request(options) {
   service.interceptors.response.use(
     response => {
       NProgress.done();
-      console.log('response', response);
 
       const { content, result, errorMsg, errorCode } = response.data;
       const { config } = response;
@@ -36,6 +36,12 @@ export default async function request(options) {
           // sessionKey 过期
           // 抛错误信息
           message.error(errorMsg);
+          const error = new Error();
+          error.message = errorMsg;
+          error.code = errorCode;
+          const a = Cookies.get(CONST.SSO_KEY_NAME);
+          console.log('a', a);
+          throw error;
           // 重置登录状态
           // 清空 cookies
           // 跳转登录站点
@@ -46,7 +52,7 @@ export default async function request(options) {
           //   }
           //   );
           // }, 2000);
-          return;
+          // return;
         }
         // 是白名单接口
         if (apiPass) {
@@ -69,6 +75,9 @@ export default async function request(options) {
     response = await service(options);
     return response;
   } catch (err) {
+    if (err.code === CONST.requestCode.sso) {
+      throw err;
+    }
     return response;
   }
 }
